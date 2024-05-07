@@ -6,13 +6,13 @@ import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped
-public class CoffeeRepository implements PanacheRepository<Coffee> {
+public class CoffeeRepository implements PanacheRepository<CoffeeOrder> {
 
-    public Coffee findByType(String type) {
+    public CoffeeOrder findByType(String type) {
         return find("type", type).firstResult();
     }
 
-    public List<Coffee> listAmountGreaterThan(int amount) {
+    public List<CoffeeOrder> listAmountGreaterThan(int amount) {
         return find("amount > ?1", amount).list();
     }
 }

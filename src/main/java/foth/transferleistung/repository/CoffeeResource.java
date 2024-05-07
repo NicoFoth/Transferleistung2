@@ -12,34 +12,34 @@ public class CoffeeResource {
     CoffeeService coffeeService;
 
     @POST
-    public Long createArticle(String type, int amount) {
-        return coffeeService.createArticle(type, amount);
+    public Long createArticle(CoffeeOrderDTO coffeeOrderDTO) {
+        return coffeeService.createArticle(coffeeOrderDTO);
     }
 
     @GET
-    public List<Coffee> getAll() {
+    public List<CoffeeOrder> getAll() {
         return coffeeService.getAll();
     }
 
     @GET
     @Path("/{id}")
-    public Coffee getById(Long id) {
-        Coffee coffee = coffeeService.getById(id);
-        if (coffee == null) {
+    public CoffeeOrder getById(Long id) {
+        CoffeeOrder coffeeOrder = coffeeService.getById(id);
+        if (coffeeOrder == null) {
             throw new NotFoundException();
         }
-        return coffee;
+        return coffeeOrder;
     }
 
     @PUT
     @Path("/{id}")
-    public Coffee updateArticle(Coffee coffee) {
-        return coffeeService.updateArticle(coffee);
+    public CoffeeOrder updateArticle(CoffeeOrder coffeeOrder) {
+        return coffeeService.updateArticle(coffeeOrder);
     }
 
     @DELETE
     @Path("/{id}")
     public void deleteArticle(Long id) {
-        coffeeService.deleteArticle(id);
+        coffeeService.deleteOrder(id);
     }
 }

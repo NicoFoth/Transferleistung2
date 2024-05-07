@@ -12,32 +12,32 @@ public class TeaResource {
     TeaService teaService;
 
     @POST
-    public Long createArticle(String type, int amount) {
-        return teaService.createArticle(type, amount);
+    public Long createOrder(TeaOrderDTO teaOrderDTO) {
+        return teaService.createOrder(teaOrderDTO);
     }
 
     @GET
-    public List<Tea> getAll() {
+    public List<TeaOrder> getAll() {
         return teaService.getAll();
     }
 
     @GET
     @Path("/{id}")
-    public Tea getById(Long id) {
-        Tea tea = teaService.getById(id);
-        if (tea == null) {
+    public TeaOrder getById(Long id) {
+        TeaOrder teaOrder = teaService.getById(id);
+        if (teaOrder == null) {
             throw new NotFoundException();
         }
-        return tea;
+        return teaOrder;
     }
 
     @PUT
-    public Tea updateArticle(Tea tea) {
-        return teaService.updateArticle(tea);
+    public TeaOrder updateOrder(TeaOrder teaOrder) {
+        return teaService.updateOrder(teaOrder);
     }
 
     @DELETE
-    public void deleteArticle(Long id) {
-        teaService.deleteArticle(id);
+    public void deleteOrder(Long id) {
+        teaService.deleteOrder(id);
     }
 }

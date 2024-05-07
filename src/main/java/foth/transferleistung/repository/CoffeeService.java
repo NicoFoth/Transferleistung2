@@ -2,6 +2,7 @@ package foth.transferleistung.repository;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
 
 import java.util.List;
 
@@ -15,33 +16,36 @@ public class CoffeeService {
     }
 
     @Transactional
-    public Long createArticle(String type, int amount) {
-        Coffee article = new Coffee();
-        article.type = type;
-        article.amount = amount;
+    public Long createArticle(CoffeeOrderDTO coffeeOrderDTO) {
+        CoffeeOrder article = new CoffeeOrder();
+        article.type = coffeeOrderDTO.type();
+        article.amount = coffeeOrderDTO.amount();
         coffeeRepository.persist(article);
         return article.id;
     }
 
-    public Coffee getById(Long id) {
+    public CoffeeOrder getById(Long id) {
         return coffeeRepository.findById(id);
     }
 
-    public List<Coffee> getAll() {
+    public List<CoffeeOrder> getAll() {
         return coffeeRepository.listAll();
     }
 
     @Transactional
-    public Coffee updateArticle(Coffee coffee) {
-        Coffee article = coffeeRepository.findById(coffee.id);
-        article.amount = coffee.amount;
-        article.type = coffee.type;
+    public CoffeeOrder updateArticle(CoffeeOrder coffeeOrder) {
+        CoffeeOrder article = coffeeRepository.findById(coffeeOrder.id);
+        article.amount = coffeeOrder.amount;
+        article.type = coffeeOrder.type;
         return article;
     }
 
     @Transactional
-    public void deleteArticle(Long id) {
-        Coffee article = coffeeRepository.findById(id);
-        coffeeRepository.delete(article);
+    public void deleteOrder(Long id) {
+        CoffeeOrder order = coffeeRepository.findById(id);
+        if (order == null) {
+            throw new NotFoundException();
+        }
+        coffeeRepository.delete(order);
     }
 }
